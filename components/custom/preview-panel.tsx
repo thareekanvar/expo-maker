@@ -1,4 +1,3 @@
-'use client'
 
 import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -21,7 +20,7 @@ export function PreviewPanel({ code }: PreviewPanelProps) {
 
   const getSnackUrl = () => {
     const encodedCode = encodeURIComponent(code)
-    return `https://snack.expo.dev/?platform=android&code=${encodedCode}`
+    return `https://snack.expo.dev/?platform=web&code=${encodedCode}`
   }
 
   return (

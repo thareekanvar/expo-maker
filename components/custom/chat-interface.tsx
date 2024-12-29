@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useChat } from 'ai/react'
 import { Bot, Send, User } from 'lucide-react'
 import { Button } from "@/components/ui/button"
@@ -8,30 +8,25 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { PreviewPanel } from './preview-panel'
+import { MDXRenderer } from './mdx-renderer'
 
 export function ChatInterface() {
-  const { messages, input, handleInputChange, handleSubmit,error } = useChat({
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: '/api/chat',
   })
   const [currentCode, setCurrentCode] = useState('')
 
-  console.log('hi',messages,error)
-
-  const handleChatSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    handleSubmit(e)
-    
-    // Update code after AI response
-    setTimeout(() => {
+  useEffect(() => {
+    if (messages.length > 0) {
       const lastMessage = messages[messages.length - 1]
-      if (lastMessage?.role === 'assistant') {
+      if (lastMessage.role === 'assistant') {
         const codeMatch = lastMessage.content.match(/```(?:jsx?|tsx?)\n([\s\S]*?)```/)
         if (codeMatch && codeMatch[1]) {
-          setCurrentCode(codeMatch[1])
+          setCurrentCode(codeMatch[1].trim())
         }
       }
-    }, 1000)
-  }
+    }
+  }, [messages])
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -59,15 +54,15 @@ export function ChatInterface() {
                   className={`flex-1 px-4 py-2 rounded-lg ${
                     message.role === 'assistant' ? 'bg-muted' : 'bg-primary/10'
                   }`}
-                >
-                  <pre className="whitespace-pre-wrap font-sans">{message.content}</pre>
+                > 
+                                <MDXRenderer content={message.content} />
                 </div>
               </div>
             ))}
           </ScrollArea>
         </CardContent>
         <CardFooter>
-          <form onSubmit={handleChatSubmit} className="flex w-full gap-2">
+          <form onSubmit={handleSubmit} className="flex w-full gap-2">
             <Input
               placeholder="Describe the React Native component you want to create..."
               value={input}
