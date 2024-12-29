@@ -25,7 +25,7 @@ export function PreviewPanel({ code }: PreviewPanelProps) {
 
   return (
     <Card className="w-full h-full">
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="flex flex-col gap-2 xl:flex-row items-center justify-between">
         <CardTitle>React Native Code</CardTitle>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={handleCopy}>

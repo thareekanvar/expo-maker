@@ -27,15 +27,18 @@ export default function RootLayout({
   return (
     
     <html lang="en">
-      <SidebarProvider>
-      {/* <AppSidebar /> */}
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SidebarTrigger />
+      <SidebarProvider>
+      {/* <AppSidebar /> */}
+      
+        {/* <SidebarTrigger /> */}
+        <div className="w-full flex items-center justify-center" >
         {children}
-      </body>
+        </div>
     </SidebarProvider>
+      </body>
     </html>
   );
 }

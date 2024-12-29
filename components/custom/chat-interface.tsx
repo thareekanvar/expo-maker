@@ -32,7 +32,7 @@ export function ChatInterface() {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>ExpoAI Assistant</CardTitle>
+          <CardTitle>AI Assistant</CardTitle>
         </CardHeader>
         <CardContent>
           <ScrollArea className="h-[600px] pr-4">
