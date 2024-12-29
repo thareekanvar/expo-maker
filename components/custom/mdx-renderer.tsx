@@ -44,7 +44,10 @@ export function MDXRenderer({ content }: MDXRendererProps) {
   }
 
   return (
-        <MDXRemote {...mdxSource} />
+    <div className='max-w-lg'>
+
+        <MDXRemote {...mdxSource}  />
+    </div>
   )
 }
 
