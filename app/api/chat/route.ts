@@ -1,13 +1,12 @@
-import { geminiFlashModel } from '@/ai';
-import { CoreMessage, streamText } from 'ai';
-
+import { geminiFlashModel } from "@/ai";
+import { CoreMessage, streamText } from "ai";
 
 export async function POST(req: Request) {
-    const { messages }: { messages: CoreMessage[] } = await req.json();
+  const { messages }: { messages: CoreMessage[] } = await req.json();
 
   const response = streamText({
     model: geminiFlashModel,
-    system:  `You are an AI assistant specialized in creating React Native and Expo mobile applications. Maintain context and continuity throughout the conversation. Each response should build upon previous answers and code examples.
+    system: `You are an AI assistant specialized in creating React Native and Expo mobile applications. Maintain context and continuity throughout the conversation. Each response should build upon previous answers and code examples.
 
 When users request components or features:
 1. Always provide complete, working code examples using React Native
@@ -23,6 +22,7 @@ When users request components or features:
 11. always provide the full front end code dont add ... 
 12. use expo modules maximum
 13. dont put // ... (styles remain the same) add full code always
+14. its should be clan and beautiful and better UI
 
 Example response format:
 # React Native Component: [Component Name]
@@ -72,10 +72,8 @@ Consider the following enhancements or related components:
 - [Suggestion 3]
 
 Let me know which aspect you'd like to explore next, and we'll continue building on this foundation.`,
-    messages
-    
-  })
+    messages,
+  });
 
   return response.toDataStreamResponse();
 }
-

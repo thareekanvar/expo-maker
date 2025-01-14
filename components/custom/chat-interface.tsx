@@ -1,65 +1,78 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { useChat } from 'ai/react'
-import { Bot, Send, User } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { PreviewPanel } from './preview-panel'
-import { MDXRenderer } from './mdx-renderer'
+import { useState, useEffect, useRef } from "react";
+import { useChat } from "ai/react";
+import { Bot, Send, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { PreviewPanel } from "./preview-panel";
+import { MDXRenderer } from "./mdx-renderer";
 
 export function ChatInterface() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: '/api/chat',
-  })
-  const [currentCode, setCurrentCode] = useState('')
+    api: "/api/chat",
+  });
+  const [currentCode, setCurrentCode] = useState("");
+  const endOfMessagesRef = useRef(null); // Ref for the end of messages
 
   useEffect(() => {
     if (messages.length > 0) {
-      const lastMessage = messages[messages.length - 1]
-      if (lastMessage.role === 'assistant') {
-        const codeMatch = lastMessage.content.match(/```(?:jsx?|tsx?)\n([\s\S]*?)```/)
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.role === "assistant") {
+        const codeMatch = lastMessage.content.match(
+          /```(?:jsx?|tsx?)\n([\s\S]*?)```/
+        );
         if (codeMatch && codeMatch[1]) {
-          setCurrentCode(codeMatch[1].trim())
+          setCurrentCode(codeMatch[1].trim());
         }
       }
     }
-  }, [messages])
+  }, [messages]);
+
+  // Scroll to the bottom when messages change
+  useEffect(() => {
+    endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Card className="w-full">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full h-full">
+      <Card className="w-full col-span-1">
         <CardHeader>
           <CardTitle>AI Assistant</CardTitle>
         </CardHeader>
-        <CardContent>
-          <ScrollArea className="h-[600px] pr-4">
-            {messages.map((message, index) => (
+        <CardContent className="overflow-y-auto h-[78vh]">
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`flex gap-3 mb-4 ${
+                message.role === "assistant" ? "flex-row" : "flex-row-reverse"
+              }`}
+            >
+              <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/10">
+                {message.role === "assistant" ? (
+                  <Bot className="w-5 h-5 text-primary" />
+                ) : (
+                  <User className="w-5 h-5 text-primary" />
+                )}
+              </div>
               <div
-                key={index}
-                className={`flex gap-3 mb-4 ${
-                  message.role === 'assistant' ? 'flex-row' : 'flex-row-reverse'
+                className={`flex-1 px-4 py-2 rounded-lg ${
+                  message.role === "assistant" ? "bg-muted" : "bg-primary/10"
                 }`}
               >
-                <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/10">
-                  {message.role === 'assistant' ? (
-                    <Bot className="w-5 h-5 text-primary" />
-                  ) : (
-                    <User className="w-5 h-5 text-primary" />
-                  )}
-                </div>
-                <div
-                  className={`flex-1 px-4 py-2 rounded-lg ${
-                    message.role === 'assistant' ? 'bg-muted' : 'bg-primary/10'
-                  }`}
-                > 
-                                <MDXRenderer content={message.content} />
-                </div>
+                <MDXRenderer content={message.content} />
               </div>
-            ))}
-          </ScrollArea>
+            </div>
+          ))}
+          {/* Empty div to help scroll to the bottom */}
+          <div ref={endOfMessagesRef} />
         </CardContent>
         <CardFooter>
           <form onSubmit={handleSubmit} className="flex w-full gap-2">
@@ -77,6 +90,5 @@ export function ChatInterface() {
       </Card>
       <PreviewPanel code={currentCode} />
     </div>
-  )
+  );
 }
-
