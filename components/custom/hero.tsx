@@ -1,8 +1,13 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Header from "./header";
 
 export default function Hero() {
+  const router = useRouter();
+
   return (
     <div className="min-h-screen bg-black text-white">
       <section
@@ -10,7 +15,7 @@ export default function Hero() {
         className="relative flex flex-col items-center justify-center gap-10 max-w-[80rem] p-6 text-center md:p-8 min-h-[100vh]"
       >
         <Header />
-        <h1 className="bg-gradient-to-br md:mt-32 from-white to-stone-700 bg-clip-text text-5xl font-semibold tracking-tighter text-transparent sm:text-6xl md:text-7xl lg:text-8xl">
+        <h1 className="bg-gradient-to-br mt-16 md:mt-32 from-white to-stone-700 bg-clip-text text-5xl font-semibold tracking-tighter text-transparent sm:text-6xl md:text-7xl lg:text-8xl">
           Build Mobile Apps with
           <br className="hidden md:block" /> AI and Expo.
         </h1>
@@ -22,6 +27,9 @@ export default function Hero() {
         <Button
           size="lg"
           className="bg-white text-black hover:bg-gray-100 w-fit"
+          onClick={() => {
+            router.push("/dashboard");
+          }}
         >
           Get Started for free
           <svg
