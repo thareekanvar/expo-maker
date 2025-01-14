@@ -48,12 +48,12 @@ export function ChatInterface() {
 
   return (
     <ResizablePanelGroup direction="horizontal" className="rounded-lg border">
-      <ResizablePanel defaultSize={20}>
+      <ResizablePanel defaultSize={40}>
         <Card className="w-full flex h-full flex-col rounded-none border-none">
           <CardHeader>
             <CardTitle>AI Assistant</CardTitle>
           </CardHeader>
-          <CardContent className="overflow-y-auto max-h-[80vh] mb-2">
+          <CardContent className="overflow-y-auto h-[80vh] mb-2">
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -96,7 +96,7 @@ export function ChatInterface() {
         </Card>
       </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel defaultSize={80}>
+      <ResizablePanel defaultSize={60}>
         <PreviewPanel code={currentCode} />
       </ResizablePanel>
     </ResizablePanelGroup>
