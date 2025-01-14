@@ -23,6 +23,8 @@ When users request components or features:
 12. use expo modules maximum
 13. dont put // ... (styles remain the same) add full code always
 14. its should be clan and beautiful and better UI
+15. Use react narive paper theme
+16. Tell step by step installation process also 
 
 Example response format:
 # React Native Component: [Component Name]

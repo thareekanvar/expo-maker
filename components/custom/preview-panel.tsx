@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   };
 
   return (
-    <Card className="flex flex-col gap-2 lg:col-span-2">
+    <Card className="flex flex-col gap-2 rounded-none h-full border-none">
       {/* <CardHeader className="flex flex-col gap-2 xl:flex-row items-center justify-between">
         <CardTitle>React Native Code</CardTitle>
         <div className="flex items-center gap-2">
