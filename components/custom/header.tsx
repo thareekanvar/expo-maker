@@ -29,7 +29,7 @@ export default function Header() {
             variant="outline"
             className="text-white bg-transparent border-white hover:bg-white hover:text-black transition-colors"
           >
-            <Link href="/dashboard">Log in</Link>
+            <Link href="/dashboard">Dashboard</Link>
           </Button>
         </div>
       </div>
