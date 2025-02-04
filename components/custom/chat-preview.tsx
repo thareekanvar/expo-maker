@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MDXRenderer } from "./mdx-renderer";
 
-export function ChatPreview({ messages }: any) {
+export function ChatPreview({ messages }) {
   return (
     <Card className="w-full h-full">
       <CardHeader>
@@ -12,7 +12,7 @@ export function ChatPreview({ messages }: any) {
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[400px] pr-4">
-          {messages.map((message: any, index: any) => (
+          {messages.map((message, index) => (
             <div key={index} className="mb-4">
               <div className="font-bold">
                 {message.role === "user" ? "User" : "Assistant"}:
