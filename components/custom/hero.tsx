@@ -1,14 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import Header from "./header";
-import Link from "next/link";
 
 export default function Hero() {
-  const router = useRouter();
-
   return (
     <div className="min-h-screen bg-black text-white">
       <section
