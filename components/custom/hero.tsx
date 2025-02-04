@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Header from "./header";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -30,9 +31,11 @@ export default function Hero() {
             height={3000}
           />
         </div>
-
-        <p className="text-gray-500">Developed by thareekanvar</p>
       </section>
+      <p className="text-gray-500 text-center mb-12">
+        Developed by{" "}
+        <Link href="https://www.thareekanvar.com/">thareekanvar</Link>
+      </p>
     </div>
   );
 }
